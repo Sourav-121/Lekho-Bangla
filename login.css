@@ -1,0 +1,294 @@
+ #loginBtn,
+      #userLogo {
+        cursor: pointer;
+      }
+      #loginBtn {
+        padding: 6px 12px;
+        background: #4caf50;
+        border: none;
+        color: white;
+        border-radius: 5px;
+      }
+      #userLogo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: none;
+
+        object-fit: cover; /* This is crucial for proper image display */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: #555; /* Fallback background if image doesn't load */
+      }
+
+#modalPic {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover; /* This is crucial for proper image display */
+  border: 2px solid rgba(0, 180, 255, 0.5);
+}
+
+    
+#loginModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+#loginModal.active {
+    display: flex;
+}
+
+#loginContent {
+    background: linear-gradient(135deg, #0a0e17 0%, #1a2439 100%);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 320px;
+    border: 1px solid rgba(0, 183, 255, 0.3);
+    box-shadow: 
+        0 0 30px rgba(0, 162, 255, 0.4),
+        inset 0 0 20px rgba(0, 89, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+#loginContent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 162, 255, 0.2), transparent);
+    animation: lightStreak 3s ease-in-out infinite;
+    transform: skewX(-25deg);
+}
+
+#loginContent::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 162, 255, 0.1) 0%, transparent 60%);
+    opacity: 0.5;
+    animation: pulse 6s ease-in-out infinite;
+}
+
+#loginContent h3 {
+    color: #00e6ff;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px rgba(0, 230, 255, 0.7);
+    font-family: 'Orbitron', sans-serif;
+    position: relative;
+}
+
+#loginContent h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00e6ff, transparent);
+}
+
+#googleBtnContainer {
+    position: relative;
+    padding: 20px;
+    background: rgba(0, 21, 41, 0.5);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 162, 255, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+#googleBtnContainer:hover {
+    border-color: #00e6ff;
+    box-shadow: 0 0 20px rgba(0, 230, 255, 0.5);
+    transform: translateY(-2px);
+    background: rgba(0, 34, 68, 0.6);
+}
+
+/* Animation keyframes */
+@keyframes lightStreak {
+    0% { left: -100%; }
+    20% { left: 120%; }
+    100% { left: 120%; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.9); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(0.9); opacity: 0.5; }
+}
+
+/* Circuit board pattern overlay */
+#loginContent {
+    background-image: 
+        linear-gradient(rgba(0, 60, 120, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 60, 120, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Add a subtle glow effect around the modal */
+#loginContent {
+    animation: glow 4s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 30px rgba(0, 162, 255, 0.4), inset 0 0 20px rgba(0, 89, 255, 0.1); }
+    to { box-shadow: 0 0 40px rgba(0, 162, 255, 0.6), inset 0 0 25px rgba(0, 89, 255, 0.15); }
+}
+
+
+
+
+
+
+      /* side bar robotic theme */
+      #userModal {
+        position: fixed;
+        top: 70px; /* Leaves space for navigation bar */
+        right: -350px;
+        width: 280px;
+        height: auto;
+        background: linear-gradient(145deg, #0a0e17, #131827);
+        box-shadow: -4px 0 25px rgba(0, 195, 255, 0.3),
+          -2px 0 10px rgba(0, 150, 255, 0.4),
+          inset 1px 0 0 rgba(100, 220, 255, 0.1);
+        padding: 25px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        display: block;
+        border-left: 1px solid rgba(0, 180, 255, 0.4);
+        border-radius: 8px 0 0 8px;
+      }
+
+      #userModal.active {
+        right: 0;
+      }
+
+      #userModal #closeSidebar {
+        cursor: pointer;
+        float: right;
+        font-size: 24px;
+        color: #00b4ff;
+        text-shadow: 0 0 8px rgba(0, 180, 255, 0.7);
+        background: rgba(10, 20, 35, 0.8);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -15px;
+        margin-right: -15px;
+        border: 1px solid rgba(0, 150, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #userModal #closeSidebar:hover {
+        color: #00eaff;
+        text-shadow: 0 0 12px rgba(0, 234, 255, 0.9);
+        box-shadow: 0 0 15px rgba(0, 200, 255, 0.5);
+        transform: scale(1.1);
+      }
+
+      #userModal img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        margin: 15px auto;
+        display: block;
+        border: 2px solid rgba(0, 180, 255, 0.5);
+        box-shadow: 0 0 20px rgba(0, 180, 255, 0.4);
+        background: linear-gradient(145deg, #0f1523, #1a243f);
+        padding: 3px;
+      }
+
+      #userModal h3 {
+        color: #ffffff;
+        font-size: 20px;
+        text-align: center;
+        margin: 15px 0 8px 0;
+        text-shadow: 0 0 10px rgba(0, 180, 255, 0.7);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      #userModal p {
+        color: #a0c5e7;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 25px;
+        padding: 10px;
+        background: rgba(15, 25, 45, 0.4);
+        border-radius: 6px;
+        border: 1px solid rgba(0, 150, 255, 0.2);
+        box-shadow: 0 0 10px rgba(0, 150, 255, 0.1);
+      }
+
+      #userModal button {
+        padding: 12px 20px;
+        border: none;
+        background: linear-gradient(to right, #0066cc, #0099ff);
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        width: 100%;
+        margin-top: 10px;
+        box-shadow: 0 0 15px rgba(0, 150, 255, 0.4);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 180, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      #userModal button:hover {
+        background: linear-gradient(to right, #0080ff, #00aaff);
+        box-shadow: 0 0 20px rgba(0, 200, 255, 0.6);
+        transform: translateY(-2px);
+      }
+
+      #userModal button:active {
+        transform: translateY(0);
+        box-shadow: 0 0 10px rgba(0, 150, 255, 0.4);
+      }
+
+      #userModal::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 150, 255, 0.1) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: -1;
+      }

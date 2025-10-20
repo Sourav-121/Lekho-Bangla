@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BanglaType - বাংলা টাইপিং পরীক্ষা</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans Bengali', 'Kalpurush', Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c0e1d 0%, #1a1f3b 100%);
+            color: #f0f0f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(108, 92, 231, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(108, 92, 231, 0.5),
+                        0 0 20px rgba(108, 92, 231, 0.5),
+                        0 0 40px rgba(108, 92, 231, 0.5);
+            animation: animate 5s linear infinite;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translate(0, 0) scale(0);
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background: rgba(10, 12, 25, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.8rem 5%;
+            background: rgba(10, 12, 25, 0.95);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #6c5ce7;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            color: #ff9f43;
+            text-shadow: 0 0 15px rgba(255, 159, 67, 0.5);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #ff9f43;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover i {
+            transform: rotate(15deg);
+            color: #6c5ce7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ddd;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(45deg, #6c5ce7, #ff9f43);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff9f43;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .login-btn {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff9f43, #fdcb6e);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
+        }
+
+        .login-btn:hover::before {
+            left: 0;
+        }
+
+        /* Hero Section - Fixed */
+        .hero {
+            padding: 12rem 5% 8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 31, 59, 0.9) 0%, rgba(42, 48, 83, 0.8) 100%);
+            z-index: -1;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ff9f43, #fdcb6e, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s infinite alternate;
+            line-height: 1.2;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px rgba(255, 159, 67, 0.5); }
+            to { text-shadow: 0 0 20px rgba(255, 159, 67, 0.8), 0 0 30px rgba(108, 92, 231, 0.6); }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin: 0 auto 3rem;
+            color: #b2bec3;
+            transition: all 0.3s ease;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        .hero p:hover {
+            color: #f0f0f0;
+            transform: scale(1.02);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .primary-btn {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .primary-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff9f43, #fdcb6e);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.5);
+        }
+
+        .primary-btn:hover::before {
+            left: 0;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: #6c5ce7;
+            border: 2px solid #6c5ce7;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateY(-5px) scale(1.05);
+            color: #ff9f43;
+            border-color: #ff9f43;
+            box-shadow: 0 8px 25px rgba(255, 159, 67, 0.3);
+        }
+
+        /* Main Section */
+        .main-section {
+            padding: 5rem 5%;
+            text-align: center;
+            background: rgba(16, 19, 40, 0.8);
+            margin: 2rem auto;
+            border-radius: 20px;
+            max-width: 1200px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #fdcb6e;
+            transition: all 0.3s ease;
+        }
+
+        .main-section h2:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 15px rgba(253, 203, 110, 0.5);
+        }
+
+        .main-section p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #dfe6e9;
+            transition: all 0.3s ease;
+        }
+
+        .main-section p:hover {
+            color: #ffffff;
+            transform: scale(1.02);
+        }
+
+        .login-prompt {
+            background: rgba(26, 31, 59, 0.6);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 600px;
+            border: 1px solid #6c5ce7;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .login-prompt:hover {
+            border-color: #ff9f43;
+            box-shadow: 0 8px 25px rgba(255, 159, 67, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .login-prompt h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #a29bfe;
+            transition: all 0.3s ease;
+        }
+
+        .login-prompt:hover h3 {
+            color: #ff9f43;
+            transform: scale(1.05);
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            background: rgba(26, 31, 59, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 280px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            animation: fadeIn 1s ease-out;
+            animation-fill-mode: backwards;
+        }
+
+        .feature:nth-child(1) { animation-delay: 0.2s; }
+        .feature:nth-child(2) { animation-delay: 0.4s; }
+        .feature:nth-child(3) { animation-delay: 0.6s; }
+
+        .feature:hover {
+            transform: translateY(-10px) scale(1.03);
+            border-color: #ff9f43;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: #6c5ce7;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover i {
+            color: #ff9f43;
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .feature h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #fdcb6e;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover h3 {
+            color: #ff9f43;
+        }
+
+        .feature p {
+            font-size: 1rem;
+            color: #b2bec3;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover p {
+            color: #dfe6e9;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0c19;
+            padding: 2.5rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #6c5ce7, #ff9f43, #6c5ce7);
+            animation: gradientMove 3s infinite linear;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #b2bec3;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(45deg, #6c5ce7, #ff9f43);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ff9f43;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .copyright {
+            color: #636e72;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .copyright:hover {
+            color: #f0f0f0;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 10rem 5% 6rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                gap: 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .login-btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <span style="--x: 10vw; --y: 20vh;"></span>
+        <span style="--x: 80vw; --y: 70vh;"></span>
+        <span style="--x: 30vw; --y: 50vh;"></span>
+        <span style="--x: 60vw; --y: 10vh;"></span>
+        <span style="--x: 40vw; --y: 80vh;"></span>
+        <span style="--x: 90vw; --y: 40vh;"></span>
+        <span style="--x: 20vw; --y: 60vh;"></span>
+        <span style="--x: 70vw; --y: 30vh;"></span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo">
+            <i class="fas fa-keyboard"></i>
+            <span>BanglaType</span>
+        </div>
+        <div class="nav-links">
+            <a href="#">টেস্ট</a>
+            <a href="#">লিডারবোর্ড</a>
+            <a href="#">হেল্প</a>
+        </div>
+        <button class="login-btn">লগইন</button>
+    </nav>
+
+    <!-- Hero Section - Fixed -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>আপনার বাংলা টাইপিং দক্ষতা পরীক্ষা করুন</h1>
+            <p>দ্রুত এবং নির্ভুলভাবে বাংলা টাইপিং শেখার ও অনুশীলনের সর্বোত্তম প্ল্যাটফর্ম</p>
+            <div class="hero-buttons">
+                <button class="cta-btn primary-btn">এখনই শুরু করুন</button>
+                <button class="cta-btn secondary-btn">আরও জানুন</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Section -->
+    <section class="main-section">
+        <h2>আপনার টাইপিং দক্ষতা যাচাই করুন</h2>
+        <p>বাংলা টাইপিং গতি এবং নির্ভুলতা পরিমাপ করতে আমাদের ইন্টারেক্টিভ টেস্ট ব্যবহার করুন। বিনামূল্যে নিবন্ধন করুন এবং আপনার উন্নতি ট্র্যাক করুন।</p>
+        
+        <div class="login-prompt">
+            <h3>টেস্ট শুরু করতে লগইন করুন</h3>
+            <p>আপনার টাইপিং পরীক্ষা শুরু করতে বা লিডারবোর্ড দেখতে দয়া করে লগইন করুন</p>
+            <button class="cta-btn primary-btn">লগইন করুন</button>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-tachometer-alt"></i>
+                <h3>গতি পরিমাপ</h3>
+                <p>প্রতি মিনিটে শব্দ (WPM) এবং প্রতি মিনিটে অক্ষর (CPM) হিসাবে আপনার গতি পরিমাপ করুন</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-bullseye"></i>
+                <h3>নির্ভুলতা বিশ্লেষণ</h3>
+                <p>আপনার টাইপিং নির্ভুলতা বিশ্লেষণ করুন এবং উন্নতির জন্য পরামর্শ পান</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-trophy"></i>
+                <h3>লিডারবোর্ড</h3>
+                <p>বিশ্বব্যাপী ব্যবহারকারীদের সাথে নিজের দক্ষতা তুলনা করুন এবং শীর্ষ স্থান দখল করুন</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">প্রাইভেসি পলিসি</a>
+                <a href="#">টার্মস অফ সার্ভিস</a>
+                <a href="#">যোগাযোগ</a>
+                <a href="#">সাপোর্ট</a>
+            </div>
+            <div class="copyright">
+                &copy; ২০২৩ BanglaType. সকল права সংরক্ষিত।
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animated background creation
+        document.querySelectorAll('.bg-animation').forEach(container => {
+            for (let i = 0; i < 15; i++) {
+                const span = document.createElement('span');
+                const x = Math.floor(Math.random() * 90 + 5) + 'vw';
+                const y = Math.floor(Math.random() * 90 + 5) + 'vh';
+                span.style.setProperty('--x', x);
+                span.style.setProperty('--y', y);
+                span.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                span.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(span);
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Simple login functionality
+        document.querySelectorAll('.login-btn, .primary-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.innerHTML = 'লোড হচ্ছে...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    const email = prompt('আপনার ইমেইল ঠিকানা লিখুন:');
+                    if (email) {
+                        const password = prompt('আপনার পাসওয়ার্ড লিখুন:');
+                        if (password) {
+                            alert('লগইন successful! টেস্ট পেজে redirect করা হচ্ছে...');
+                            // In a real application, this would redirect to the test page
+                        }
+                    }
+                    this.innerHTML = 'লগইন';
+                    this.disabled = false;
+                }, 1000);
+            });
+        });
+
+        // Add hover effect to all buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

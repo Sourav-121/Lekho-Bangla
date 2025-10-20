@@ -1,0 +1,238 @@
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #0a0a12;
+      color: #e0e0e0;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(10, 30, 60, 0.4) 0%, transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(60, 10, 40, 0.4) 0%, transparent 30%);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    
+    
+    .container {
+      width: 90%;
+      margin-top: 100px;
+      max-width: 1000px;
+      padding: 20px;
+      background: rgba(15, 20, 40, 0.7);
+      backdrop-filter: blur(5px);
+      border-radius: 12px;
+      border: 1px solid #2a2a4a;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+      letter-spacing: 1px;
+      position: relative;
+    }
+    
+    h1::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00eeff, transparent);
+      margin: 10px auto;
+    }
+    
+    .category-selector {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .category-selector span {
+      font-size: 1.1rem;
+      color: #7ae4ff;
+      text-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
+    }
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-select {
+      background: rgba(0, 30, 60, 0.8);
+      color: #7ae4ff;
+      padding: 10px 40px 10px 15px;
+      border: 1px solid #2a5cb0;
+      border-radius: 6px;
+      appearance: none;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 180px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237ae4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .dropdown-select:hover, .dropdown-select:focus {
+      border-color: #00eeff;
+      box-shadow: 0 0 10px rgba(0, 200, 255, 0.3);
+      outline: none;
+    }
+    
+    #leaderboard {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    #leaderboard thead {
+      background: linear-gradient(to right, rgba(0, 30, 60, 0.8), rgba(0, 60, 100, 0.8));
+      border-bottom: 2px solid #00eeff;
+    }
+    
+    #leaderboard th {
+      padding: 18px 15px;
+      text-align: left;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #7ae4ff;
+      position: relative;
+      text-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
+    }
+    
+    #leaderboard th::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 15px;
+      right: 15px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 238, 255, 0.5), transparent);
+    }
+    
+    #leaderboard tbody tr {
+      border-bottom: 1px solid rgba(60, 80, 120, 0.3);
+      transition: all 0.3s ease;
+      background: rgba(20, 25, 45, 0.5);
+    }
+    
+    /* First row styling - champion row */
+    #leaderboard tbody tr:first-child {
+      background: linear-gradient(to right, rgba(100, 80, 20, 0.7), rgba(60, 40, 10, 0.7));
+      border: 1px solid rgba(255, 215, 0, 0.5);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    #leaderboard tbody tr:first-child:hover {
+      background: linear-gradient(to right, rgba(120, 100, 30, 0.8), rgba(80, 60, 20, 0.8));
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+    }
+    
+    #leaderboard tbody tr:first-child td {
+      color: #ffd700;
+      font-weight: bold;
+      text-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
+    }
+    
+    #leaderboard tbody tr:not(:first-child):hover {
+      background: rgba(30, 40, 70, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 30, 60, 0.3);
+    }
+    
+    #leaderboard tbody tr:nth-child(even):not(:first-child) {
+      background: rgba(25, 30, 50, 0.5);
+    }
+    
+    #leaderboard tbody tr:nth-child(even):not(:first-child):hover {
+      background: rgba(35, 45, 75, 0.7);
+    }
+    
+    #leaderboard td {
+      padding: 16px 15px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    #leaderboard tbody tr:hover td {
+      color: #ffffff;
+    }
+    
+    #leaderboard tbody tr:hover td:first-child::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, #00eeff, transparent);
+    }
+    
+    /* Specific column styling */
+    #leaderboard td:nth-child(3),
+    #leaderboard td:nth-child(4) {
+      font-weight: bold;
+      color: #7aff9c;
+      text-shadow: 0 0 5px rgba(0, 255, 100, 0.3);
+    }
+    
+    #leaderboard tbody tr:hover td:nth-child(3),
+    #leaderboard tbody tr:hover td:nth-child(4) {
+      text-shadow: 0 0 8px rgba(0, 255, 100, 0.5);
+    }
+    
+    /* Animation for rows */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    #leaderboard tbody tr {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+        overflow-x: auto;
+      }
+      
+      #leaderboard {
+        font-size: 0.9rem;
+        min-width: 600px;
+      }
+      
+      #leaderboard th,
+      #leaderboard td {
+        padding: 12px 8px;
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .category-selector {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }

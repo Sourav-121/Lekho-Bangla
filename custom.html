@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>কাস্টম টেক্সট যোগ করুন</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-link">🏠 টাইপিং টেস্ট</a>
+      <a href="leaderboard.html" class="nav-link">📊 লিডারবোর্ড</a>
+      <a href="custom.html" class="nav-link">📝 কাস্টম টেক্সট</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>কাস্টম টেক্সট যোগ করুন</h1>
+    <form action="save_custom.php" method="POST">
+      <label>টেক্সটের নাম:</label><br>
+      <input type="text" name="title" required><br><br>
+
+      <label>ইমেইল:</label><br>
+      <input type="email" name="email" required><br><br>
+
+      <label>আপনার টেক্সট:</label><br>
+      <textarea name="content" rows="10" cols="80" required></textarea><br><br>
+
+      <button type="submit">সংরক্ষণ করুন</button>
+    </form>
+  </div>
+</body>
+</html>

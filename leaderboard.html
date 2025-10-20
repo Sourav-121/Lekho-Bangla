@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>লিডারবোর্ড</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="nav.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="stylesheet" href="./login.css">
+
+  <script src="./node_modules/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="./leader.css">
+  
+</head>
+<body>
+  <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo">
+            <i class="fas fa-keyboard"></i>
+            <span id="next" >LekhoBangla</span>
+        </div>
+        <div class="nav-links">
+           <a href="./index.html">হোম</a>
+            <a href="./test.html">টেস্ট</a>
+            <a href="./leaderboard.html">লিডারবোর্ড</a>
+          
+        </div>
+        <div>
+           
+         <img id="userLogo" crossorigin="anonymous" src="" alt="User">
+        </div>
+    </nav>
+
+<!-- all modal -->
+    <!-- User Sidebar -->
+    <div id="userModal">
+      <span id="closeSidebar">&times;</span>
+      <img id="modalPic" crossorigin="anonymous" src="" alt="User Pic" />
+      <h3 id="modalName"></h3>
+      <p id="modalEmail"></p>
+      <button id="logoutBtn">Logout</button>
+    </div>
+
+  <div class="container">
+    <h1>লিডারবোর্ড</h1>
+    
+    <div class="category-selector">
+      <span>ক্যাটাগরি নির্বাচন করুন:</span>
+      <div class="dropdown">
+        <select class="dropdown-select" id="timeCategory">
+          <option value="10">10 Second</option>
+          
+          <option value="30">30 Second</option>
+          <option value="60" selected>60 Second</option>
+          <option value="120">120 Second</option>
+        </select>
+      </div>
+    </div>
+    
+    <table id="leaderboard">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Name</th>
+          <th>WPM</th>
+          <th>Accuracy</th>
+          <th>Date</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody">
+        <!-- Data will be populated by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+
+<script>
+
+
+ 
+     
+      const userLogo = document.getElementById("userLogo");
+      const userModal = document.getElementById("userModal");
+      const closeSidebar = document.getElementById("closeSidebar");
+      const modalName = document.getElementById("modalName");
+      const modalEmail = document.getElementById("modalEmail");
+      const modalPic = document.getElementById("modalPic");
+ 
+
+
+
+         // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+
+
+// Session check
+window.addEventListener("DOMContentLoaded", () => {
+  fetch("check_session.php")
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "logged_in") {
+        userLogo.style.display = "inline-block";
+        userLogo.src = 'image_proxy.php';
+        modalPic.src = 'image_proxy.php';
+        modalName.textContent = data.user.name;
+        modalEmail.textContent = data.user.email;
+
+
+        loadLeaderboard(categoryDropdown.value);
+      } else {
+        userLogo.style.display = "none";
+        // Redirect to home.html if not logged in
+        window.location.href = "home.html";
+      }
+    })
+    .catch((error) => {
+      console.error("Session check error:", error);
+      // Redirect to home.html if there's an error
+      window.location.href = "home.html";
+    });
+});
+
+
+        // Handle Google login
+      function handleCredentialResponse(response) {
+        fetch("login.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: "credential=" + response.credential,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "success") {
+           
+       
+
+              userLogo.src = 'image_proxy.php';
+        
+              userLogo.style.display = "inline-block";
+
+              modalName.textContent = data.user.name;
+              modalEmail.textContent = data.user.email;
+              
+              modalPic.src = 'image_proxy.php';
+            } else {
+              alert("Login failed: " + data.error);
+            }
+          });
+      }
+
+
+
+// Logout
+logoutBtn.addEventListener("click", () => {
+  fetch("logout.php")
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "logged_out") {
+        userLogo.style.display = "none";
+        userModal.classList.remove("active");
+        // Redirect to home.html after logout
+        window.location.href = "home.html";
+      }
+    });
+});
+      // Toggle sidebar when clicking user logo
+      userLogo.addEventListener("click", (e) => {
+        e.stopPropagation();
+        userModal.classList.toggle("active");
+      });
+
+      // Close sidebar with close button
+      closeSidebar.addEventListener("click", () => {
+        userModal.classList.remove("active");
+      });
+
+      // Close sidebar if clicking outside of it
+      document.addEventListener("click", (e) => {
+        if (
+          userModal.classList.contains("active") &&
+          !userModal.contains(e.target) &&
+          e.target !== userLogo
+        ) {
+          userModal.classList.remove("active");
+        }
+      });
+
+
+      // Add error handling for images
+userLogo.onerror = function() {
+  console.error('User logo failed to load');
+  this.style.display = 'none';
+};
+
+modalPic.onerror = function() {
+  console.error('Modal pic failed to load');
+  
+};
+
+
+
+document.getElementById("next").addEventListener("click", function () {
+    window.location.href = "index.html";
+  });
+
+
+</script>
+
+
+<script>
+const apiUrl = "http://localhost:3000/api/allData.php"; 
+const positionUrl = "http://localhost:3000/api/getPosition.php"; 
+
+const userEmail = document.getElementById("modalEmail").textContent;
+
+
+const categoryDropdown = document.getElementById("timeCategory");
+const leaderboardBody = document.getElementById("leaderboardBody");
+
+
+categoryDropdown.addEventListener("change", () => {
+  const selectedCategory = categoryDropdown.value;
+  loadLeaderboard(selectedCategory);
+});
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  loadLeaderboard(categoryDropdown.value);
+});
+
+function loadLeaderboard(category) {
+  leaderboardBody.innerHTML = `<tr><td colspan="6">Loading...</td></tr>`;
+  
+  // Get the email from modal element FRESH each time
+  const userEmail = document.getElementById("modalEmail").textContent;
+  
+  // Check if we have a valid email
+  if (!userEmail || userEmail.trim() === "") {
+    leaderboardBody.innerHTML = `<tr><td colspan="6">Please wait, loading user data...</td></tr>`;
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("email", userEmail);
+  formData.append("category", category);
+
+  // Step 1: Get leaderboard data
+  axios.post(apiUrl, formData)
+    .then(response => {
+      const leaderboard = response.data;
+
+      // Step 2: Get position data
+      axios.post(positionUrl, formData)
+        .then(posResponse => {
+          const position = posResponse.data.position;
+          leaderboardBody.innerHTML = "";
+
+          let userEntry = null;
+          let rest = [];
+          let userRank = 1;
+
+          // Handle case where user doesn't have data for this category
+          if (position === "N/A") {
+            userEntry = null;
+            rest = leaderboard;
+          } 
+          else {
+            // Find user entry in the leaderboard
+            const userIndex = leaderboard.findIndex(entry => entry.email === userEmail);
+            
+            if (userIndex !== -1) {
+              userEntry = leaderboard[userIndex];
+              userRank = parseInt(position);
+              
+              // Remove user entry from the main list
+              rest = [...leaderboard];
+              rest.splice(userIndex, 1);
+            } else {
+              userEntry = null;
+              rest = leaderboard;
+            }
+          }
+
+          // Show user entry first (if found)
+          if (userEntry) {
+            const userRow = `
+              <tr style="background-color: #f0f8ff;">
+                <td>${userRank}</td>
+                <td>${userEntry.name}</td>
+                <td>${userEntry.wpm}</td>
+                <td>${userEntry.accuracy}%</td>
+                <td>${userEntry.date}</td>
+                <td>${userEntry.time}</td>
+              </tr>
+            `;
+            leaderboardBody.innerHTML += userRow;
+          }
+
+          // Append rest of leaderboard with correct ranks
+          rest.forEach((entry, index) => {
+            // Calculate correct rank - if we showed user first, ranks continue from userRank + 1
+            // Otherwise, just use index + 1
+            let rank;
+            if (userEntry) {
+              rank = userRank <= (index + 1) ? index + 2 : index + 1;
+            } else {
+              rank = index + 1;
+            }
+            
+            const row = `
+              <tr>
+                <td>${rank}</td>
+                <td>${entry.name}</td>
+                <td>${entry.wpm}</td>
+                <td>${entry.accuracy}%</td>
+                <td>${entry.date}</td>
+                <td>${entry.time}</td>
+              </tr>
+            `;
+            leaderboardBody.innerHTML += row;
+          });
+        })
+        .catch(() => {
+          // If position API fails, fallback to full leaderboard
+          renderFullLeaderboard(leaderboard);
+        });
+    })
+    .catch(error => {
+      console.error("Error loading leaderboard:", error);
+      leaderboardBody.innerHTML = `<tr><td colspan="6">Data not found</td></tr>`;
+    });
+}
+function renderFullLeaderboard(data) {
+  leaderboardBody.innerHTML = "";
+  data.forEach((entry, index) => {
+    const row = `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${entry.name}</td>
+        <td>${entry.wpm}</td>
+        <td>${entry.accuracy}%</td>
+        <td>${entry.date}</td>
+        <td>${entry.time}</td>
+      </tr>
+    `;
+    leaderboardBody.innerHTML += row;
+  });
+}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>বাংলা টাইপিং টেস্ট</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="nav.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./login.css">
+
+    <style>
+
+
+      #userLogo {
+        cursor: pointer;
+      }
+     
+      #userLogo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: none;
+
+        object-fit: cover; /* This is crucial for proper image display */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: #555; /* Fallback background if image doesn't load */
+      }
+
+#modalPic {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover; /* This is crucial for proper image display */
+  border: 2px solid rgba(0, 180, 255, 0.5);
+}
+
+  
+
+
+      /* side bar robotic theme */
+      #userModal {
+        position: fixed;
+        top: 70px; /* Leaves space for navigation bar */
+        right: -350px;
+        width: 280px;
+        height: auto;
+        background: linear-gradient(145deg, #0a0e17, #131827);
+        box-shadow: -4px 0 25px rgba(0, 195, 255, 0.3),
+          -2px 0 10px rgba(0, 150, 255, 0.4),
+          inset 1px 0 0 rgba(100, 220, 255, 0.1);
+        padding: 25px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        display: block;
+        border-left: 1px solid rgba(0, 180, 255, 0.4);
+        border-radius: 8px 0 0 8px;
+      }
+
+      #userModal.active {
+        right: 0;
+      }
+
+      #userModal #closeSidebar {
+        cursor: pointer;
+        float: right;
+        font-size: 24px;
+        color: #00b4ff;
+        text-shadow: 0 0 8px rgba(0, 180, 255, 0.7);
+        background: rgba(10, 20, 35, 0.8);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -15px;
+        margin-right: -15px;
+        border: 1px solid rgba(0, 150, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #userModal #closeSidebar:hover {
+        color: #00eaff;
+        text-shadow: 0 0 12px rgba(0, 234, 255, 0.9);
+        box-shadow: 0 0 15px rgba(0, 200, 255, 0.5);
+        transform: scale(1.1);
+      }
+
+      #userModal img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        margin: 15px auto;
+        display: block;
+        border: 2px solid rgba(0, 180, 255, 0.5);
+        box-shadow: 0 0 20px rgba(0, 180, 255, 0.4);
+        background: linear-gradient(145deg, #0f1523, #1a243f);
+        padding: 3px;
+      }
+
+      #userModal h3 {
+        color: #ffffff;
+        font-size: 20px;
+        text-align: center;
+        margin: 15px 0 8px 0;
+        text-shadow: 0 0 10px rgba(0, 180, 255, 0.7);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      #userModal p {
+        color: #a0c5e7;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 25px;
+        padding: 10px;
+        background: rgba(15, 25, 45, 0.4);
+        border-radius: 6px;
+        border: 1px solid rgba(0, 150, 255, 0.2);
+        box-shadow: 0 0 10px rgba(0, 150, 255, 0.1);
+      }
+
+      #userModal button {
+        padding: 12px 20px;
+        border: none;
+        background: linear-gradient(to right, #0066cc, #0099ff);
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        width: 100%;
+        margin-top: 10px;
+        box-shadow: 0 0 15px rgba(0, 150, 255, 0.4);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 180, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      #userModal button:hover {
+        background: linear-gradient(to right, #0080ff, #00aaff);
+        box-shadow: 0 0 20px rgba(0, 200, 255, 0.6);
+        transform: translateY(-2px);
+      }
+
+      #userModal button:active {
+        transform: translateY(0);
+        box-shadow: 0 0 10px rgba(0, 150, 255, 0.4);
+      }
+
+      #userModal::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 150, 255, 0.1) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: -1;
+      }
+    </style>
+
+
+  </head>
+  <body>
+   <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo">
+            <i class="fas fa-keyboard"></i>
+            <span>LekhoBangla</span>
+        </div>
+        <div class="nav-links">
+            <a href="#">টেস্ট</a>
+            <a href="#">লিডারবোর্ড</a>
+            <a href="#">হেল্প</a>
+        </div>
+        <div>
+           
+         <img id="userLogo" crossorigin="anonymous" src="" alt="User">
+        </div>
+    </nav>
+
+<!-- all modal -->
+    <!-- User Sidebar -->
+    <div id="userModal">
+      <span id="closeSidebar">&times;</span>
+      <img id="modalPic" crossorigin="anonymous" src="" alt="User Pic" />
+      <h3 id="modalName"></h3>
+      <p id="modalEmail"></p>
+      <button id="logoutBtn">Logout</button>
+    </div>
+
+    <div class="container">
+
+      <h1>বাংলা টাইপিং টেস্ট</h1>
+
+      <div class="controls">
+        <label for="timer-select">সময়:</label>
+        <select id="timer-select">
+          <option value="10">10 সেকেন্ড</option>
+          <option value="30">30 সেকেন্ড</option>
+          <option value="60" selected>60 সেকেন্ড</option>
+          <option value="120">120 সেকেন্ড</option>
+        </select>
+        <button id="change-btn">নতুন টেক্সট</button>
+        <button id="stop-btn">থামান</button>
+        <button id="reset-btn">রিসেট</button>
+<!-- custom section -->
+        <section class="custom">
+          <label for="custom-select">কাস্টম টেক্সট:</label>
+<select id="custom-select">
+  <option value="">-- নির্বাচন করুন --</option>
+        </section>
+</select>
+
+
+      </div>
+
+      <div id="text-display"></div>
+
+      <textarea id="input-area" placeholder="এখানে টাইপ করুন..."></textarea>
+
+      <div class="stats ">
+        <span id="timer">সময়: <span>60</span> সেকেন্ড</span>
+        <span id="wpm">স্পিড: <span>0</span> শব্দ/মিনিট</span>
+        <span id="accuracy">শুদ্ধতা: <span>0</span>%</span>
+        <span id="wrong">ভুল শব্দ: <span>0</span></span>
+      </div>
+    </div>
+
+
+
+
+    <script src="script.js"></script>
+    <script>
+
+
+ 
+     
+      const userLogo = document.getElementById("userLogo");
+      const userModal = document.getElementById("userModal");
+      const closeSidebar = document.getElementById("closeSidebar");
+      const modalName = document.getElementById("modalName");
+      const modalEmail = document.getElementById("modalEmail");
+      const modalPic = document.getElementById("modalPic");
+ 
+
+
+
+         // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+
+
+           // Session check
+      window.addEventListener("DOMContentLoaded", () => {
+        fetch("check_session.php")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "logged_in") {
+         
+              userLogo.style.display = "inline-block";
+              // userLogo.src = data.user.picture;
+              // modalPic.src = data.user.picture;
+              userLogo.src = 'image_proxy.php';
+              modalPic.src = 'image_proxy.php';
+              modalName.textContent = data.user.name;
+              modalEmail.textContent = data.user.email;
+            } else {
+        
+              userLogo.style.display = "none";
+            }
+          });
+      });
+
+
+
+        // Handle Google login
+      function handleCredentialResponse(response) {
+        fetch("login.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: "credential=" + response.credential,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "success") {
+           
+       
+
+              userLogo.src = 'image_proxy.php';
+        
+              userLogo.style.display = "inline-block";
+
+              modalName.textContent = data.user.name;
+              modalEmail.textContent = data.user.email;
+              
+              modalPic.src = 'image_proxy.php';
+            } else {
+              alert("Login failed: " + data.error);
+            }
+          });
+      }
+
+
+
+       // Logout
+      logoutBtn.addEventListener("click", () => {
+        fetch("logout.php")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "logged_out") {
+              userLogo.style.display = "none";
+              userModal.classList.remove("active");
+            }
+          });
+      });
+
+      // Toggle sidebar when clicking user logo
+      userLogo.addEventListener("click", (e) => {
+        e.stopPropagation();
+        userModal.classList.toggle("active");
+      });
+
+      // Close sidebar with close button
+      closeSidebar.addEventListener("click", () => {
+        userModal.classList.remove("active");
+      });
+
+      // Close sidebar if clicking outside of it
+      document.addEventListener("click", (e) => {
+        if (
+          userModal.classList.contains("active") &&
+          !userModal.contains(e.target) &&
+          e.target !== userLogo
+        ) {
+          userModal.classList.remove("active");
+        }
+      });
+
+
+      // Add error handling for images
+userLogo.onerror = function() {
+  console.error('User logo failed to load');
+  this.style.display = 'none'; // Hide broken image
+};
+
+modalPic.onerror = function() {
+  console.error('Modal pic failed to load');
+  // You could set a fallback image here
+  // this.src = 'fallback-image.jpg';
+};
+    </script>
+  </body>
+</html>
